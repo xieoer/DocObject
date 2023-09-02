@@ -959,3 +959,351 @@ match_all
 高亮
 
 <img src='/assets/img/el16.png'>
+
+## 数据聚合
+    聚合（aggregations）可以实现对文档数据的统计，分析，运算。聚合常见的有三类：    
+    桶（Bucket）聚合：用来对文档做分组      
+        ~ TermAggregation：按照文档字段值分组     
+        ~ Date Histogram：按照日期阶段分组，例如一周为一组，或者一个月为一组      
+    度量（Metric）聚合：用以计算一些值，比如：最大值，最小值，平均值等等       
+        ~ Avg：求平均值      
+        ~ Max：求最大值      
+        ~ Min：求最小值      
+        ~ Stats：同时求max，min，avg，sum等     
+    管道（pipeline）聚合：其他聚合的结果为基础做聚合
+
+### DSL实现Bucket聚合
+``` properties
+GET /索引库名/_search
+{
+  "size":0,  //设置为0，结果中不包含文档，只包含聚合结果
+  "aggs": {     //定义聚合
+    "brandAgg": {      //给聚合起个名字
+      "terms": {      //聚合的类型
+        "field": "字段名",   //参与聚合的字段
+        "order": {
+          "_key": "asc"     //定义排序规则，降序或升序，不写默认为降序
+        },
+        "size": 10      //希望获取的聚合结果数量
+      }
+    }
+  }
+}
+```
+``` properties
+# 限定聚合范围
+GET /索引库名/_search
+{
+  "query": {            
+    "range": {          //限定范围
+      "price": {
+        "gte": 200,
+        "lte": 400
+      }
+    }
+  }, 
+  "size":0,  //设置为0，结果中不包含文档，只包含聚合结果
+  "aggs": {     //定义聚合
+    "聚合的名字": {      //给聚合起个名字
+      "terms": {      //聚合的类型
+        "field": "字段名",   //参与聚合的字段
+        "order": {
+          "_key": "asc"     //定义排序规则，降序或升序，不写默认为降序
+        },
+        "size": 10      //希望获取的聚合结果数量
+      }
+    }
+  }
+}
+```
+### DSL实现Metrics聚合
+``` properties
+GET /索引库名/_search
+{
+  "size":0,
+  "aggs": {
+    "AggsName": {
+      "terms": {
+        "field": "brand",     //Bucket聚合的基础上实现Metrics聚合
+        "size": 10
+      },
+      "aggs": {     //Bucket聚合聚合的子聚合，也就是分组后分别计算
+        "聚合名称": {       //聚合名称
+          "stats": {    //聚合类型，这里stats可以计算min，max，avg等
+            "field": "字段名"    //聚合字段
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+## RestClient实现聚合
+#### RestAPI与DSL对照
+<img src='/assets/img/el17.png'>
+
+#### 结果解析与文档对照
+<img src='/assets/img/el18.png'>
+
+### RestClient聚合实现
+``` java
+@Test
+void testAggregation() throws IOException {
+    // 1.准备Request
+    SearchRequest request = new SearchRequest("hotel");
+    // 2.准备DSL
+    request.source().size(0);
+    request.source().aggregation(AggregationBuilders
+            .terms("brandAgg")
+            .field("brand")
+            .size(10));
+    // 3.发出请求
+    SearchResponse response = client.search(request, RequestOptions.DEFAULT);
+    // 4.解析结果
+    Aggregations aggregations = response.getAggregations();
+    // 4.1 根据聚合名称获取聚合结果
+    Terms brandTerms = aggregations.get("brandAgg");
+    // 4.2 获取buckets
+    List<? extends Terms.Bucket> buckets = brandTerms.getBuckets();
+    // 4.3 遍历buckets
+    for (Terms.Bucket bucket: buckets) {
+        // 4.4 获取key
+        String key = bucket.getKeyAsString();
+        System.out.println(key);
+    }
+}
+```
+### 多条件聚合
+``` java
+@Test
+void testAggregation02() throws IOException {
+    // 1.准备Request
+    SearchRequest request = new SearchRequest("hotel");
+    // 2.准备DSL
+    request.source().size(0);
+    buildAggregation(request);
+    // 3.发出请求
+    SearchResponse response = client.search(request, RequestOptions.DEFAULT);
+    // 4.解析结果
+    Aggregations aggregations = response.getAggregations();
+    // 创建结果集合
+    Map<String, ArrayList<String>> result = new HashMap<>();
+    ArrayList<String> brandList = getAggByName(aggregations,"brandAgg");
+    ArrayList<String> cityList = getAggByName(aggregations,"cityAgg");
+    ArrayList<String> starList = getAggByName(aggregations,"starAgg");
+    result.put("品牌",brandList);
+    result.put("城市",cityList);
+    result.put("星级",starList);
+    System.out.println(result);
+}
+
+// 聚合解析抽取
+private ArrayList<String> getAggByName(Aggregations aggregations, String AggName) {
+    // 4.1 根据聚合名称获取聚合结果
+    Terms brandTerms = aggregations.get(AggName);
+    // 4.2 获取buckets
+    List<? extends Terms.Bucket> buckets = brandTerms.getBuckets();
+    // 4.3 遍历buckets
+    // 创建brand集合
+    ArrayList<String> brandList = new ArrayList<>();
+    for (Terms.Bucket bucket: buckets) {
+        // 4.4 获取key
+        String key = bucket.getKeyAsString();
+        // 存入brand
+        brandList.add(key);
+    }
+    return brandList;
+}
+
+// 聚合结果获取抽取
+private void buildAggregation(SearchRequest request) {
+    request.source().aggregation(AggregationBuilders
+            .terms("brandAgg")
+            .field("brand")
+            .size(20));
+    request.source().aggregation(AggregationBuilders
+            .terms("cityAgg")
+            .field("city")
+            .size(20));
+    request.source().aggregation(AggregationBuilders
+            .terms("starAgg")
+            .field("starName")
+            .size(20));
+}
+```
+## 拼音分词器
+<a href="https://github.com/medcl/elasticsearch-analysis-pinyin/releases">下载对应版本的分词器</a>    
+解压上传到对应目录
+
+<img src='/assets/img/el19.png'>
+
+重启es
+``` shell
+docker restart es
+```
+测试
+``` properties
+GET /_analyze
+{
+  "analyzer": "pinyin",
+  "text": "华为手机真好用！"
+}
+```
+
+## 自定义分词器
+    elasticsearch中分词器（analyzer）的组成包含三部分：        
+    character filters：在tokenizer之前对文本进行处理。例如删除字符，替换字符。     
+    tokenizer：将文本按照一定的规则切割成词条（trem）。例如keyword，就是不分词；还有ik_smart  
+    tokenizer filter：将tokenizer输出的词条做进一步处理。例如大小写转换，同义词处理，拼音处理等
+
+###DSL语法
+我们可以在创建索引库时，通过settings来配置自定义的analyzer（分词器）：
+``` properties
+PUT /test
+{
+  "settings": {
+    "analysis": {
+      "analyzer": {
+        "my_analyzer": {
+          "tokenizer": "ik_max_word",
+          "filter": "py"
+        }
+      },
+      "filter": {
+        "py": {
+          "type": "pinyin",
+          "keep_full_pinyin": false,
+          "keep_joined_full_pinyin": true,
+          "keep_original": true,
+          "limit_first_letter_length": 16,
+          "remove_duplicated_term": true,
+          "none_chinese_pinyin_tokenize": false
+        }
+      }
+    }
+  },
+  "mappings": {
+    "properties": {
+      "name": {
+        "type": "text", 
+        "analyzer": "my_analyzer",
+        "search_analyzer": "ik_smart"
+      }
+    }
+  }
+}
+
+# 测试1
+GET /test/_analyze
+{
+  "analyzer": "my_analyzer",
+  "text": "华为手机真好用！"
+}
+
+# 测试2
+POST /test/_doc/1
+{
+  "id": 1,
+  "name": "狮子"
+}
+
+POST /test/_doc/2
+{
+  "id": 1,
+  "name": "虱子"
+}
+
+GET /test/_search
+{
+  "query": {
+    "match": {
+      "name": "掉入狮子笼怎么办"
+    }
+  }
+}
+```
+## 自动补全
+elasticsearch提供了Completion Suggester查询来实现自动补全功能。这个查询会匹配以用户输入内容开头的词条并返回。
+为了提高补全查询的效率，对文档中字段类型有一些约束：
+`参与补全查询的字段必须时Completion类型`
+`字段的内容一般时用来补全的多个词条形成的数组`
+``` properties
+# 创建索引库
+PUT test
+{
+  "mappings":{
+    "properties":{
+      "title":{
+        "type":"completion"
+      }
+    }
+  }
+}
+
+# 示例数据
+POST test/_doc
+{
+  "title":["Sony","WH-1000XM3"]
+}
+POST test/_doc
+{
+  "title":["SK-II","PITERA"]
+}
+POST test/_doc
+{
+  "title":["Nintendo","switch"]
+}
+
+# 自动补全查询
+GET /test02/_search
+{
+  "suggest": {
+    "titleSuggest": {       //查询结果名字
+      "text": "s",          //查询内容
+      "completion": {       //查询数据类型
+        "field": "title",       //字段名
+        "skip_duplicates":true,     //是否跳过重复
+        "size":10       //查询结果显示条数
+      }
+    }
+  }
+}
+```
+### RestAPI实现自动补全
+RestAPI与DSL对比
+
+<img src='/assets/img/el20.png'>
+
+结果解析对比
+
+<img src='/assets/img/el20.png'>
+
+``` java
+@Test
+void testSuggest() throws IOException {
+    //准备Request
+    SearchRequest request = new SearchRequest("test02");
+    //准备DSL
+    request.source().suggest(new SuggestBuilder().addSuggestion(
+            "titleSuggest",
+            SuggestBuilders.completionSuggestion("title")
+                    .prefix("s")
+                    .skipDuplicates(true)
+                    .size(10)
+            )
+    );
+    //发送请求
+    SearchResponse response = client.search(request, RequestOptions.DEFAULT);
+    // 解析结果
+    Suggest suggest = response.getSuggest();
+    // 根据补全查询名称，获取补全结果
+    CompletionSuggestion suggestions = suggest.getSuggestion("titleSuggest");
+    // 获取options
+    List<CompletionSuggestion.Entry.Option> options = suggestions.getOptions();
+    // 遍历
+    options.forEach(option -> System.out.println(option.getText().toString()));
+}
+```
+
+

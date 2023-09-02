@@ -133,7 +133,7 @@ public class Main {
 
 不过这种模式只适用于简单对象，当我们需要生产许多个产品族的时候，这种模式就有点乏力了，比如：
 
-![image-20220521162444703](https://tva1.sinaimg.cn/large/e6c9d24egy1h2g3rpau36j218u0e0jt8.jpg)
+<img src='/assets/img/java01.jpg'>
 
 实际上这些产品都是成族出现的，比如小米的产品线上有小米12，小米平板等，华为的产品线上也有华为手机、华为平板，但是如果按照我们之前工厂方法模式来进行设计，那就需要单独设计9个工厂来生产上面这些产品，显然这样就比较浪费时间的。
 
@@ -336,7 +336,7 @@ public class Singleton {
 
 不过，这里需要特别提醒一下，由于懒汉式是在方法中进行的初始化，在多线程环境下，可能会出现问题（建议学完JUC篇视频教程再来观看）大家可以试想一下，如果这个时候有多个线程同时调用了`getInstance()`方法，那么会出现什么问题呢？
 
-![image-20220522161134092](https://tva1.sinaimg.cn/large/e6c9d24egy1h2h90c124gj21ae0bedhw.jpg)
+<img src='/assets/img/java02.jpg'>
 
 可以看到，在多线程环境下，如果三条线程同时调用`getInstance()`方法，会同时进行`INSTANCE == null`的判断，那么此时由于确实还没有进行任何实例化，所以导致三条线程全部判断为`true`（而饿汉式由于在类加载时就创建完成，不会存在这样的问题）此时问题就来了，我们既然要使用单例模式，那么肯定是只希望对象只被初始化一次的，但是现在由于多线程的机制，导致对象被多次创建。
 
@@ -379,7 +379,7 @@ public static Singleton getInstance(){
 
 不过我们还少考虑了一样内容，其实IDEA此时应该是给了黄标了：
 
-![image-20220522162246278](https://tva1.sinaimg.cn/large/e6c9d24egy1h2h9by3dioj21be0aqmyd.jpg)
+<img src='/assets/img/java03.jpg'>
 
 可以看到，这种情况下，IDEA会要求我们添加一个`volatile`给`INSTANCE`，各位还记得这个关键字有什么作用吗？没错，我们还需要保证`INSTANCE`在线程之间的可见性，这样当其他线程进入之后才会拿`INSTANCE`由其他线程更新的最新值去判断，这样，就差不多完美了。
 

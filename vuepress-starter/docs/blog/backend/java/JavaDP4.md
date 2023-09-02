@@ -24,7 +24,7 @@
 
 有些时候，我们的业务可能需要经历很多个步骤来完成，比如我们生病了在医院看病，首先是去门诊挂号，然后等待叫号，然后是去找医生看病，确定病因后，就根据医生的处方去前台开药，最后付钱。这一整套流程看似是规规矩矩的，但是在这其中，某些步骤并不是确定的，比如医生看病这一步，由于不同的病因，可能会进行不同的处理，最后开出来的药方也会不同，所以，整套流程中，有些操作是固定的，有些操作可能需要根据具体情况而定。
 
-![image-20220524164925635](https://tva1.sinaimg.cn/large/e6c9d24ely1h2jlcb4jmqj20yi084mxz.jpg)
+<img src='/assets/img/java13.jpg'>
 
 在我们的程序中也是如此，可能某些操作是固定的，我们就可以直接在类中对应方法进行编写，但是可能某些操作需要视情况而定，由不同的子类实现来决定，这时，我们就需要让这些操作由子类来延迟实现了。现在我们就需要用到模板方法模式。
 
@@ -81,7 +81,7 @@ public static void main(String[] args) {
 }
 ```
 
-![image-20220524171621919](https://tva1.sinaimg.cn/large/e6c9d24ely1h2jm4bz3mej217k06s3z7.jpg)
+<img src='/assets/img/java14.jpg'>
 
 最后我们来看看在JUC中讲解AQS源码实现中出现的代码：
 
@@ -125,11 +125,11 @@ protected final boolean tryRelease(int releases) {
 
 责任链模式也非常好理解，比如我们的钉钉审批，实际上就是一条流水线一样的操作，由你发起申请，然后经过多个部门主管审批，最后才能通过，所以你的申请表相当于是在一条责任链上传递。当然除了这样的直线型责任链之外，还有环形、树形等。
 
-![image-20220524172400365](https://tva1.sinaimg.cn/large/e6c9d24ely1h2jmca3j84j21bs08kglw.jpg)
+<img src='/assets/img/java15.jpg'>
 
 实际上我们之前也遇到过很多种责任链，比如JavaWeb中学习的Filter过滤器，正是采用的责任链模式，通过将请求一级一级不断向下传递，来对我们所需要的请求进行过滤和处理。
 
-![image-20220524231849889](https://tva1.sinaimg.cn/large/e6c9d24egy1h2jwlifbqfj21ci05ujrx.jpg)
+<img src='/assets/img/java16.jpg'>
 
 这里我们就使用责任链模式来模拟一个简单的面试过程，我们面试也是一面二面三面这样走的流程，这里我们先设计一下责任链上的各个处理器：
 
@@ -215,7 +215,7 @@ public static void main(String[] args) {
 
 大家有没有发现现在的家电都在趋向于智能化，通过一个中央控制器，我们就可以对家里的很多电器进行控制，比如国内做的比较好的小米智能家居系列，还有Apple的HomeKit等，我们只需要在一个终端上进行操作，就可以随便控制家里的电器。
 
-![image-20220524235450650](https://tva1.sinaimg.cn/large/e6c9d24egy1h2jxmy55wej21g60jsjuz.jpg)
+<img src='/assets/img/java17.jpg'>
 
 比如现在我们有很多的类，彩电、冰箱、空调、洗衣机、热水器等，既然现在我们要通过一个遥控器去控制他们，那么我们就需要将控制这些电器的指令都给设计好才行，并且还不能有太强的关联性。
 
@@ -317,9 +317,9 @@ public static void main(String[] args) {
 
 可以看到，当我们使用迭代器对List进行遍历时，实际上就像一个指向列表头部的指针，我们通过不断向后移动指针来依次获取所指向的元素：
 
-![image-20220525171535024](https://tva1.sinaimg.cn/large/e6c9d24ely1h2krpu5p8gj218m0800tp.jpg)
+<img src='/assets/img/java18.jpg'>
 
-![image-20220525171557523](https://tva1.sinaimg.cn/large/e6c9d24ely1h2krq82x3kj21c407474t.jpg)
+<img src='/assets/img/java29.jpg'>
 
 这里，我们依照JDK提供的迭代器接口（JDK已经为我们定义好了一个迭代器的具体相关操作），也来设计一个迭代器：
 
@@ -408,17 +408,17 @@ public static void main(String[] args) {
 
 在早期，我们想要和别人进行语音聊天，一般都是通过电话的方式，我们通过拨打他人的电话号码，来建立会话，不过这样有一个问题，比如我现在想要通知通知3个人某件事情，那么我就得依次给三个人打电话，甚至还会遇到一种情况，就是我们没有某个人的电话号码，但是其他人有，这时还需要告知这个人并进行转告，就很麻烦。
 
-![image-20220526164233041](https://tva1.sinaimg.cn/large/e6c9d24egy1h2lwdrfpkkj21dy0ewjx9.jpg)
+<img src='/assets/img/java19.jpg'>
 
 但是现在我们有了Facetime、有了微信，我们可以同时让多个人参与到群通话中进行群聊，这样我们就不需要一个一个单独进行通话或是转达了。实际上正是依靠了一个中间商给我们提供了进行群体通话的平台，我们才能实现此功能，而这个平台实际上就是一个中间人。又比如我们想要去外面租房，但是我们怎么知道哪里有可以租的房子呢？于是我们就会上各大租房APP上去找房源，同样的，如果我们现在有房子需要出租，我们也不知道谁会想要租房子，同样的我们也会把房子挂在租房APP上展示，而当我们去租房时或是出租时，就会有一个称为中介的人来跟我们对接，实际上也是一种中介的模式。
 
 在我们的程序中，可能也会出现很多的对象，但是这些对象之间的相互调用关系错综复杂，可能一个对象要做什么事情就得联系好几个对象：
 
-![image-20220526174017796](https://tva1.sinaimg.cn/large/e6c9d24egy1h2ly1umglnj21fa0dswg2.jpg)
+<img src='/assets/img/java20.jpg'>
 
 但是如果我们在这中间搞一个中间人：
 
-![image-20220526174129303](https://tva1.sinaimg.cn/large/e6c9d24egy1h2ly3337mpj21ek0d4abk.jpg)
+<img src='/assets/img/java21.jpg'>
 
 这样当我们要联系其他人时，一律找中介就可以了，中介存储了所有人的联系方式，这样就不会像上面一样乱成一团了。这里我们就以房产中介的例子来编写：
 
@@ -489,7 +489,7 @@ public static void main(String[] args) {
 
 喝下百草枯，会给你后悔的时间，但是不会给你后悔的机会（百草枯含有剧毒物质，会直接导致肺部纤维化，这是不可逆的，一般死亡过程在一周左右，即使家里花了再多的钱，接受了再多的治疗，也无法逆转这一过程）相信如果再给这位小女孩一次机会，回到拿起百草枯的那一刻，一定不会再冲动地喝下了吧。
 
-![image-20220527123444026](https://tva1.sinaimg.cn/large/e6c9d24egy1h2muu9cw13j20pq07y0u1.jpg)
+<img src='/assets/img/java22.jpg'>
 
 备忘录模式，就为我们的软件提供了一个可回溯的时间节点，可能我们程序在运行过程中某一步出现了错误，这时我们就可以回到之前的某个被保存的节点上重新来过（就像艾克的大招），我们平时编辑文本的时候，当我们编辑出现错误时，就需要撤回，而我们只需要按下`Ctrl+Z`就可以回到上一步，这样就大大方便了我们的文本编辑。
 
@@ -567,7 +567,7 @@ public static void main(String[] args) {
 
 可以看到，虽然在学习Java的过程中，中途摆烂了，但是我们可以时光倒流，回到还没开始摆烂的时候，继续学习Java：
 
-![image-20220527163947219](https://tva1.sinaimg.cn/large/e6c9d24egy1h2n1x785gtj20x803m74l.jpg)
+<img src='/assets/img/java30.jpg'>
 
 不过备忘录模式为了去保存对象的状态，会占用大量的资源，尤其是那种属性很多的对象，我们需要合理的使用才能保证程序稳定运行。
 
@@ -575,7 +575,7 @@ public static void main(String[] args) {
 
 牵一发而动全身，一幅有序摆放的多米诺骨牌，在我们推到第一个骨牌时，后面的骨牌会不断地被上一个骨牌推倒：
 
-![image-20220527164444210](https://tva1.sinaimg.cn/large/e6c9d24egy1h2n22ctg4rj20ym0cgact.jpg)
+<img src='/assets/img/java23.jpg'>
 
 在Java中，一个对象的状态发生改变，可能就会影响到其他的对象，与之相关的对象可能也会联动的进行改变。还有我们之前遇到过的监听器机制，当具体的事件触发时，我们在一开始创建的监听器就可以执行相关的逻辑。我们可以使用观察者模式来实现这样的功能，当对象发生改变时，观察者能够立即观察到并进行一些联动操作，我们先定义一个观察者接口：
 
@@ -643,7 +643,7 @@ public static void main(String[] args) {
 
 在标准大气压下，水在0度时会结冰变成固态，在0-100度之间时，会呈现液态，100度以上会变成气态，水这种物质在不同的温度下呈现出不同的状态，而我们的对象，可能也会像这样存在很多种状态，甚至在不同的状态下会有不同的行为，我们就可以通过状态模式来实现。
 
-![image-20220527215236172](https://tva1.sinaimg.cn/large/e6c9d24egy1h2nayq0qf7j21780comxv.jpg)
+<img src='/assets/img/java24.jpg'>
 
 我们来设计一个学生类，然后学生的学习方法会根据状态不同而发生改变，我们先设计一个状态枚举：
 
@@ -698,7 +698,7 @@ public static void main(String[] args) {
 
 对面卡兹克打野被开了，我们是去打小龙还是打大龙呢？这就要看我们团队这一局的打法策略了。
 
-![image-20220527222552772](https://tva1.sinaimg.cn/large/e6c9d24egy1h2nbxb021mj20ww0aotb1.jpg)
+<img src='/assets/img/java25.jpg'>
 
 我们可以为对象设定一种策略，这样对象之后的行为就会按照我们在一开始指定的策略而决定了，看起来和前面的状态模式很像，但是，它与状态模式的区别在于，这种转换是“主动”的，是由我们去指定，而状态模式，可能是在运行过程中自动切换的。
 
@@ -725,7 +725,7 @@ public static void main(String[] args) {
 
 可以看到，我们如果使用AbortPolicy，那么就是直接抛出异常：
 
-![image-20220527223231753](https://tva1.sinaimg.cn/large/e6c9d24egy1h2nc480yhjj21ga034aap.jpg)
+<img src='/assets/img/java26.jpg'>
 
 我们也可以使用其他的策略：
 
@@ -738,7 +738,7 @@ public static void main(String[] args) {
 
 这种策略就会从等待队列中踢出一个之前的，不过我们这里的等待队列是没有容量的那种，所以会直接炸掉：
 
-![image-20220527223510016](https://tva1.sinaimg.cn/large/e6c9d24egy1h2nc6ypzsnj21200220sw.jpg)
+<img src='/assets/img/java27.jpg'>
 
 至于具体原因，可以回去看看JUC篇视频教程。
 
@@ -786,7 +786,7 @@ public static void main(String[] args) {
 
 公园中存在多个景点，也存在多个游客，不同的游客对同一个景点的评价可能不同；医院医生开的处方单中包含多种药元素，査看它的划价员和药房工作人员对它的处理方式也不同，划价员根据处方单上面的药品名和数量进行划价，药房工作人员根据处方单的内容进行抓药，相对于处方单来说，划价员和药房工作人员就是它的访问者，不过访问者的访问方式可能会不同。
 
-![image-20220527231226552](https://tva1.sinaimg.cn/large/e6c9d24egy1h2nd9r7qzlj219u0dk432.jpg)
+<img src='/assets/img/java28.jpg'>
 
 在我们的Java程序中，也可能会出现这种情况，我们就可以通过访问者模式来进行设计。
 

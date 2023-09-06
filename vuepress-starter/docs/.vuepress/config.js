@@ -71,6 +71,10 @@ module.exports = {
                             '/blog/backend/springcloud/Elasticsearch',
                         ]
                     },
+                    {
+                        title: 'JAVA架构发展',
+                        path: '/blog/backend/Framework/framework'
+                    }
                     //'/blog/backend/springcloud',
                 ]
             },

@@ -9,6 +9,7 @@ module.exports = {
             // 对应blog/fontend/README.md
             {text: '前端', link: '/blog/fontend/'},
             {text: '后端', link: '/blog/backend/'},
+            {text: '我的博客', link: 'http://120.76.204.102/'},
             // 支持嵌套,形成下拉式的导航菜单
             {
                 text: '语言',
@@ -18,7 +19,6 @@ module.exports = {
                     {text: '英文(尚未开发)', link: '/language/english/'}
                 ]
             },
-            {text: '我的博客', link: 'http://120.76.204.102/'},
             {
                 text: '更多',
                 items: [

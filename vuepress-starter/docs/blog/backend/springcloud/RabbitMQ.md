@@ -20,7 +20,7 @@
 
 ## RabbitMQ
 
-<img src='/assets/img/rabbitmq01.png'>
+<img src='/assets/img/rabbitmq/rabbitmq01.png'>
 
 ### centos7使用docker安装RabbitMQ
 ### 1.在线拉取
@@ -50,7 +50,7 @@ rabbitmq-plugins enable rabbitmq_management
 ### 5.访问
     主机ip:15672
 
-<img src='/assets/img/rabbitmq02.png'>
+<img src='/assets/img/rabbitmq/rabbitmq02.png'>
 
 ### RabbitMQ中的几个概念
     channel：操作MQ的工具
@@ -127,7 +127,7 @@ public class SpringRabbitListener {
 ```
 ## WorkQueue模型
 
-<img src='/assets/img/rabbitmq03.png'>
+<img src='/assets/img/rabbitmq/rabbitmq03.png'>
 
 ### 模拟WorkQueue，实现一个队列绑定多个消费者
 基本思路如下:
@@ -169,7 +169,7 @@ public class SpringRabbitListener {
 ```
 3.消费者1每秒处理50条消息，消费者2每秒处理10条消息
 
-<img src='/assets/img/rabbitmq04.png'>
+<img src='/assets/img/rabbitmq/rabbitmq04.png'>
 
 :::tip
 发现：两个消费者平均分配消息，但是它们的处理速度不一样，导致处理速度较快的消费者分到的消息与处理速度较慢的消费者一致，整体的处理速度较慢。
@@ -204,7 +204,7 @@ spring:
 ### (1)FanoutExchange
 ### Fanout Exchange 会将接收到的消息路由到每一个跟其绑定的queue
 
-<img src='/assets/img/rabbitmq05.png'>
+<img src='/assets/img/rabbitmq/rabbitmq05.png'>
 
 ### 交换机绑定队列
 ``` java
@@ -264,7 +264,7 @@ public void listenSimpleQueue4(String msg) throws InterruptedException {
     Thread.sleep(20);
 }
 ```
-<img src='/assets/img/rabbitmq06.png'>
+<img src='/assets/img/rabbitmq/rabbitmq06.png'>
 
 :::tip
 两个队列都接收到消息
@@ -276,7 +276,7 @@ public void listenSimpleQueue4(String msg) throws InterruptedException {
     发布者发送消息时，指定消息的RoutingKey。
     Exchange将消息路由到BindingKey与消息RoutingKey一致的队列
 
-<img src='/assets/img/rabbitmq07.png'>
+<img src='/assets/img/rabbitmq/rabbitmq07.png'>
 
 ### 绑定消息队列
 ``` java
@@ -325,7 +325,7 @@ public void demoSend6(){
 ### (3)TopicExchange
 ### TopicExchange与DirectExchange类似，区别在于routingKey必须是多个单词的列表，并且以.分割。
 
-<img src='/assets/img/rabbitmq08.png'>
+<img src='/assets/img/rabbitmq/rabbitmq08.png'>
 
 ### 绑定消息队列
 ``` java

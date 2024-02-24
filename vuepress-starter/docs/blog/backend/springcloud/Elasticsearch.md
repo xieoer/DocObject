@@ -3,7 +3,7 @@
     elasticsearch结合kibana，logstash，Beats，也就是elastic stack（ELK）。被广泛应用在日志数据分析，实时监控等领域。
     elasticsearch是elastic stack的核心，负责存储，搜索，分析数据。
 
-<img src='/assets/img/el01.png'>
+<img src='/assets/img/es/el01.png'>
 
 ### Lucene
     Elasticsearch的底层基于Lucene，Lucene是一个java语言的搜索引擎类库，是Apache公司的顶级项目，由DoungCutting于1999年研发。
@@ -18,13 +18,13 @@
 ## 正向索引和倒排索引
 传统数据库（MySQL）采用正向索引，例如给下表（tb_goods）中的id创建索引
 
-<img src='/assets/img/el02.png'>
+<img src='/assets/img/es/el02.png'>
 
 正向索引通过关键词然后一条一条数据进行查找，符合要求的存入结果集
 
 elasticsearch采用倒排索引
 
-<img src='/assets/img/el03.png'>
+<img src='/assets/img/es/el03.png'>
 
 |MySQL|Elasticsearch|说明
 |:---:|:---:|:---:|
@@ -86,7 +86,7 @@ elasticsearch:7.12.1
 
 在浏览器中输入：http://主机ip:9200 即可看到elasticsearch的响应结果
 
-<img src='/assets/img/el04.png'>
+<img src='/assets/img/es/el04.png'>
 
 ### 4.运行kibana
 ``` sh
@@ -109,14 +109,14 @@ docker logs -f kibana
 
 在浏览器输入地址访问：http://主机ip:5601，即可看到结果
 
-<img src='/assets/img/el05.png'>
+<img src='/assets/img/es/el05.png'>
 
 ### 5.DevTools
 kibana中提供了一个DevTools界面，这个界面中可以编写DSL来操作elasticsearch。并且对DSL语句有自动补全功能。
 
-<img src='/assets/img/el06.png'>
+<img src='/assets/img/es/el06.png'>
 
-<img src='/assets/img/el07.png'>
+<img src='/assets/img/es/el07.png'>
 
 ``` 
 GET /_analyze
@@ -176,7 +176,7 @@ docker volume inspect es-plugins
 
 上传到es容器的插件数据卷中
 
-<img src='/assets/img/el08.png'>
+<img src='/assets/img/es/el08.png'>
 
 重启容器
 ``` shell
@@ -199,7 +199,7 @@ IK分词器包含两种模式：
 
 1.打开IK分词器config目录
 
-<img src='/assets/img/el09.png'>
+<img src='/assets/img/es/el09.png'>
 
 2.在IKAnalyzer.cfg.xml配置文件内容添加
 ``` xml
@@ -654,13 +654,13 @@ GET /索引库名/_search
 ### 相关性算分
 当我们利用match查询时，文档结果会根据与搜素词条的关联度打分（_score），返回结果时按照分值降序排列
 #### TF算法
-<img src='/assets/img/el10.png'>
+<img src='/assets/img/es/el10.png'>
 
 #### TF—IDF算法
-<img src='/assets/img/el11.png'>
+<img src='/assets/img/es/el11.png'>
 
 #### BM25算法
-<img src='/assets/img/el12.png'>
+<img src='/assets/img/es/el12.png'>
 
 :::tip
 新版本采用的是BM25算法，BM25算法相较于TF-IDF算法受词频影响较小，得分不会一直增加
@@ -669,7 +669,7 @@ GET /索引库名/_search
 ### Function Score Query
 使用Function Score Query，可以修改文档的相关性算分（query score），根据新的到的分数进行排序
 
-<img src='/assets/img/el13.png'>
+<img src='/assets/img/es/el13.png'>
 
 ### 复合查询Boolean Query
 布尔查询是一个或多个查询子句的组合。子查询的组合方式有：
@@ -950,15 +950,15 @@ public class HotelSearchTest {
 ### RestClient与文档对照
 match_all
 
-<img src='/assets/img/el15.png'>
+<img src='/assets/img/es/el15.png'>
 
 解析
 
-<img src='/assets/img/el14.png'>
+<img src='/assets/img/es/el14.png'>
 
 高亮
 
-<img src='/assets/img/el16.png'>
+<img src='/assets/img/es/el16.png'>
 
 ## 数据聚合
     聚合（aggregations）可以实现对文档数据的统计，分析，运算。聚合常见的有三类：    
@@ -1041,10 +1041,10 @@ GET /索引库名/_search
 
 ## RestClient实现聚合
 #### RestAPI与DSL对照
-<img src='/assets/img/el17.png'>
+<img src='/assets/img/es/el17.png'>
 
 #### 结果解析与文档对照
-<img src='/assets/img/el18.png'>
+<img src='/assets/img/es/el18.png'>
 
 ### RestClient聚合实现
 ``` java
@@ -1136,7 +1136,7 @@ private void buildAggregation(SearchRequest request) {
 <a href="https://github.com/medcl/elasticsearch-analysis-pinyin/releases">下载对应版本的分词器</a>    
 解压上传到对应目录
 
-<img src='/assets/img/el19.png'>
+<img src='/assets/img/es/el19.png'>
 
 重启es
 ``` shell
@@ -1273,11 +1273,11 @@ GET /test02/_search
 ### RestAPI实现自动补全
 RestAPI与DSL对比
 
-<img src='/assets/img/el20.png'>
+<img src='/assets/img/es/el20.png'>
 
 结果解析对比
 
-<img src='/assets/img/el20.png'>
+<img src='/assets/img/es/el21.png'>
 
 ``` java
 @Test

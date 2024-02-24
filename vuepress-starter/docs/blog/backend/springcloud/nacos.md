@@ -1,4 +1,4 @@
-# nacos
+# nacos注册中心
 ## 使用
 ### 1下载安装包
 
@@ -11,11 +11,11 @@ GitHub的Release下载页：<a href='https://github.com/alibaba/nacos/releases'>
 ### 2.解压
 将这个包解压到任意非中文目录
 
-<img src='/assets/img/nacos01.png'>
+<img src='/assets/img/nacos/nacos01.png'>
 
 -------------------------------------
 
-<img src='/assets/img/nacos02.png'>
+<img src='/assets/img/nacos/nacos02.png'>
 
 目录说明：
 - bin：启动脚本
@@ -25,9 +25,9 @@ GitHub的Release下载页：<a href='https://github.com/alibaba/nacos/releases'>
 Nacos的默认端口是8848，如果你电脑上的其它进程占用了8848端口，请先尝试关闭该进程。
 如果无法关闭占用8848端口的进程，也可以进入nacos的conf目录，修改配置文件中的端口：
 
-<img src='/assets/img/nacos03.png'>
+<img src='/assets/img/nacos/nacos03.png'>
 
-<img src='/assets/img/nacos04.png'>
+<img src='/assets/img/nacos/nacos04.png'>
 
 ### 4.启动
 启动非常简单，进入bin目录，然后执行命令即可：
@@ -41,11 +41,11 @@ Nacos的默认端口是8848，如果你电脑上的其它进程占用了8848端�
 
 输入账号和密码，默认的账号和密码都是nacos
 
-<img src='/assets/img/nacos05.png'>
+<img src='/assets/img/nacos/nacos05.png'>
 
 -----------------------------------
 
-<img src='/assets/img/nacos06.png'>
+<img src='/assets/img/nacos/nacos06.png'>
 
 ### 6.nacos依赖
 父工程：
@@ -92,15 +92,15 @@ userservice:
 
 ## 服务实例的权重设置
 
-<img src='/assets/img/nacos07.png'>
+<img src='/assets/img/nacos/nacos07.png'>
 
 -----------------------------------
 
-<img src='/assets/img/nacos08.png'>
+<img src='/assets/img/nacos/nacos08.png'>
 
 -----------------------------------
 
-<img src='/assets/img/nacos09.png'>
+<img src='/assets/img/nacos/nacos09.png'>
 
 :::tip
 权重值越小被访问的概率就越小
@@ -108,15 +108,15 @@ userservice:
 
 ## 环境隔离
 
-<img src='/assets/img/nacos10.png'>
+<img src='/assets/img/nacos/nacos10.png'>
 
 -----------------------------------
 
-<img src='/assets/img/nacos11.png'>
+<img src='/assets/img/nacos/nacos11.png'>
 
 -----------------------------------
 
-<img src='/assets/img/nacos12.png'>
+<img src='/assets/img/nacos/nacos12.png'>
 
 在配置类中添加namespace
 ``` yaml
@@ -135,7 +135,7 @@ spring:
 
 -----------------------------------
 
-<img src='/assets/img/nacos13.png'>
+<img src='/assets/img/nacos/nacos13.png'>
 
 :::tip
 服务注册到nacos时，默认时临时实例，注册到Nacos时，可以选择注册为临时实例或者非临时实例，通过以下配置可以实现
@@ -153,11 +153,11 @@ spring:
 
 -----------------------------------
 
-<img src='/assets/img/nacos14.png'>
+<img src='/assets/img/nacos/nacos14.png'>
 
 -----------------------------------
 
-<img src='/assets/img/nacos15.png'>
+<img src='/assets/img/nacos/nacos15.png'>
 
 先读取bootstrap.yml文件，该文件优先级大于其他配置文件，可以将nacos的地址及配置信息写在里面
 
@@ -184,7 +184,7 @@ spring:
         file-extension: yaml  #文件后缀名
 ```
 
-<img src='/assets/img/nacos16.png'>
+<img src='/assets/img/nacos/nacos16.png'>
 
 :::tip
 Data Id与bootstrap.yml的nam，active，file-extension对应
@@ -224,7 +224,7 @@ properties.getDateformat()
 
 [服务名]-[spring.profile.active].yaml > [服务名].yaml > 本地配置
 
-<img src='/assets/img/nacos17.png'>
+<img src='/assets/img/nacos/nacos17.png'>
 
 ## nacos集群
 1.搭建mysql集群并初始化数据库表

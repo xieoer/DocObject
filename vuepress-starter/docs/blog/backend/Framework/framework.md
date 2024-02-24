@@ -2,7 +2,7 @@
 ## 1.单体架构
 功能集中、代码和数据中心化、一个发布包、部署后运行在同一进程的应用程序，称之为单体架构应用，也叫单块架构应用。
 
-<img src='/assets/img/fw01.png'>
+<img src='/assets/img/fw/fw01.png'>
 
     优势：
     1.易于开发  
@@ -19,7 +19,7 @@
 ## 2.水平扩展架构
 水平扩展是通过复制或拆分服务或数据库而分散事务负载的方法
 
-<img src='/assets/img/fw02.png'>
+<img src='/assets/img/fw/fw02.png'>
 
     优势：
     比较于单体架构，提高了系统的稳定性，提高了系统硬件支撑，提高了系统并发的能力
@@ -29,7 +29,7 @@
 ## 3.垂直拓展架构
 把一个单体架构的应用，按照子系统进行划分，每一个子系统都独立部署在自己的tomcat中。多个子系统共享数据库等存储资源。
 
-<img src='/assets/img/fw03.png'>
+<img src='/assets/img/fw/fw03.png'>
 
     优势与问题：
     解决了子系统的级别的热点问题，但是模块的热点问题没有解决。
@@ -41,7 +41,7 @@
 ## 4.RPC架构
 由垂直架构演变而来，解决了子系统间模块功能的调用
 
-<img src='/assets/img/fw04.png'>
+<img src='/assets/img/fw/fw04.png'>
     
     优点：
     可以服从其他系统的功能
@@ -57,17 +57,17 @@ SOA（Service-Oriented Architecture 面向服务的架构），它将应用程�
 接口是采用中立的方式进行定义的，它应该独立于实现服务的硬件平台、操作系统和编程语言。
 这使得构建在各种各样的系统中的服务可以以一种统一和通用的方式进行交互。
 
-<img src='/assets/img/fw05.png'>
+<img src='/assets/img/fw/fw05.png'>
 
 ### 企业服务总线ESB
 ESB是Enterprise Service Bus的简称，中文翻译为企业服务总线，企业服务总线是一个实现系统间集成和互联互通的重要技术架构，
 可以理解为是一种消息和服务集成的中间件平台。
 
-<img src='/assets/img/fw06.png'>
+<img src='/assets/img/fw/fw06.png'>
 
 ## 6.微服务架构
 微服务架构是SOA架构的升级，在微服务体系中，没有子系统了。全部都是服务化功能。微服务架构代表框架，SpringCloud，DNS
 
-<img src='/assets/img/fw07.png'>
+<img src='/assets/img/fw/fw07.png'>
 
 

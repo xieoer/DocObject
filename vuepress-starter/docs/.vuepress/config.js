@@ -74,6 +74,10 @@ module.exports = {
                     {
                         title: 'JAVA架构发展',
                         path: '/blog/backend/Framework/framework'
+                    },
+                    {
+                        title: 'Redis缓存',
+                        path: '/blog/backend/Redis/redis'
                     }
                     //'/blog/backend/springcloud',
                 ]

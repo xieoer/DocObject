@@ -86,7 +86,7 @@ sudo systemctl restart docker
 ```
 
 ## 镜像
-<img src='/assets/img/docker01.png'>
+<img src='/assets/img/docker/docker01.png'>
 
     查看镜像：docker images
     
@@ -151,7 +151,7 @@ docker build -t javaweb:2.0 .
 
 ## 容器
 
-<img src='/assets/img/docker02.png'>
+<img src='/assets/img/docker/docker02.png'>
 
     进入容器：docker exec [容器名]
     容器启动：docker start [容器名]
@@ -180,7 +180,7 @@ bash:进入容器后执行的命令，bash是一个linux终端交互命令
 :::
 
 ## 数据卷
-<img src='/assets/img/docker03.png'>
+<img src='/assets/img/docker/docker03.png'>
 
     数据卷（volume）是一个虚拟的目录，指向宿主机文件系统的某个目录
 
@@ -232,7 +232,7 @@ chmod +x /usr/local/bin/docker-compose
 
 #### 将打包好的项目以及DockerCompose文件放在同一个目录下面
 
-<img src='/assets/img/docker04.png'>
+<img src='/assets/img/docker/docker04.png'>
 
 #### 将项目中的数据库，nacos地址都命名为docker-compose中的服务名
 #### 使用maven打包工具，将项目中的每个微服务都打包成app.jar
@@ -243,7 +243,7 @@ chmod +x /usr/local/bin/docker-compose
 每个微服务的文件夹都有一个Dockerfile文件和该微服务的jar包
 :::
 
-<img src='/assets/img/docker05.png'>
+<img src='/assets/img/docker/docker05.png'>
 
 #### Dockerfile文件
 
@@ -284,4 +284,4 @@ service:
 在写微服务项目的时候，访问对应服务的地址就是docker-compose.yml文件中该服务的名称
 :::
 
-<img src='/assets/img/docker06.png'>
+<img src='/assets/img/docker/docker06.png'>

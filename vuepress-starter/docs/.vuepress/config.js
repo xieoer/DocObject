@@ -18,12 +18,12 @@ module.exports = {
                     {text: '英文(尚未开发)', link: '/language/english/'}
                 ]
             },
+            {text: '我的博客', link: 'http://120.76.204.102/'},
             {
                 text: '更多',
                 items: [
                     {text: 'vue官网', link: 'https://cn.vuejs.org/'},
                     {text: 'vuepress官网', link: 'https://vuepress.vuejs.org/zh/'},
-                    {text: '我的博客', link: 'http://120.76.204.102/'},
                     {text: 'GitHub', link: 'https://github.com/'},
                     {text: 'CSDN', link: 'https://blog.csdn.net', target: '_blank'}
                 ]

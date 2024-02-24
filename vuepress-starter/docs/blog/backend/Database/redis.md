@@ -1,6 +1,6 @@
-![点击查看源网页](https://s2.loli.net/2023/03/06/po12HL4Gjl8QOIE.jpg)
-
 # Redis数据库
+
+![点击查看源网页](https://s2.loli.net/2023/03/06/po12HL4Gjl8QOIE.jpg)
 
 **灵魂拷问：** 不是学了MySQL吗，存数据也能存了啊，又学一个数据库干嘛？
 

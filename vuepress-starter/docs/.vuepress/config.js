@@ -23,6 +23,7 @@ module.exports = {
                 items: [
                     {text: 'vue官网', link: 'https://cn.vuejs.org/'},
                     {text: 'vuepress官网', link: 'https://vuepress.vuejs.org/zh/'},
+                    {text: '我的博客', link: 'http://120.76.204.102/'},
                     {text: 'GitHub', link: 'https://github.com/'},
                     {text: 'CSDN', link: 'https://blog.csdn.net', target: '_blank'}
                 ]
@@ -48,7 +49,21 @@ module.exports = {
                             '/blog/backend/java/JavaDP4',
                         ]
                     },
-                    '/blog/backend/spring/spring',
+                    {
+                        title: 'JAVA杂谈',
+                        path: '/blog/backend/java/java2',
+                        children: [
+                            '/blog/backend/Framework/framework'
+                        ]
+                    },
+                    {
+                        title: 'spring学习手册',
+                        path: '/blog/backend/spring/spring',
+                        sidebarDepth: 2,
+                        children: [
+
+                        ]
+                    },
                     {
                         title: 'springboot学习手册',
                         path: '/blog/backend/springboot/springboot',
@@ -72,12 +87,12 @@ module.exports = {
                         ]
                     },
                     {
-                        title: 'JAVA架构发展',
-                        path: '/blog/backend/Framework/framework'
-                    },
-                    {
-                        title: 'Redis缓存',
-                        path: '/blog/backend/Redis/redis'
+                        title: '数据库',
+                        path: '/blog/backend/Database/database',
+                        sidebarDepth: 2,
+                        children: [
+                            '/blog/backend/Database/redis'
+                        ]
                     }
                     //'/blog/backend/springcloud',
                 ]
